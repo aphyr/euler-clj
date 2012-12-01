@@ -1,4 +1,5 @@
-(ns euler.math)
+(ns euler.math
+  (:use clojure.math.numeric-tower))
 
 (defn divisible?
   "Is x divisible by divisor?"
@@ -14,6 +15,16 @@
   "Sums numbers."
   [numbers]
   (reduce + numbers))
+
+(defn square
+  "x squared"
+  [x]
+  (expt x 2))
+
+(defn cube
+  "x cubed"
+  [x]
+  (expt x 3))
 
 (defn inc-in-base
   "Increments a list of digits in a given base, least-significant-first. In
