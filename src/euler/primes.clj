@@ -1,5 +1,6 @@
 (ns euler.primes
-  (:use euler.math))
+  (:use euler.math
+        [clojure.math.combinatorics :only [subsets]]))
 
 (defn primes*
   "A sieve-of-eratosthenes lazy sequence of prime numbers, beginning with candidate
@@ -61,3 +62,8 @@
 
      ; No remaining factors.
      done)))
+
+(defn factors
+  "All factors of n."
+  [n]
+  (distinct (map product (subsets (prime-factorization n)))))

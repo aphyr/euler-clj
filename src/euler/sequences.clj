@@ -19,6 +19,13 @@
   ([a b]
    (lazy-seq (cons a (fibonacci b (+ a b))))))
 
+(defn triangle-numbers
+  "The triangle numbers, e.g.
+  0, 1, 3, 6, 10, 15, 21, ..."
+  ([] (triangle-numbers 0 1))
+  ([sum i]
+   (lazy-seq (cons sum (triangle-numbers (+ sum i) (inc i))))))
+
 (defn square-seq
   "Given n seqs, returns a seq of tuples. Each tuple's first element comes from
   the first seq, the second element from the second seq, etc. Final seqs

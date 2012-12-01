@@ -16,6 +16,11 @@
   [numbers]
   (reduce + numbers))
 
+(defn product
+  "The product of numbers."
+  [numbers]
+  (reduce * numbers))
+
 (defn square
   "x squared"
   [x]
@@ -30,6 +35,11 @@
   "x cubed"
   [x]
   (expt x 3))
+
+(defn factorial
+  "n!"
+  [n]
+  (reduce * (range 2 (bigint n))))
 
 (defn inc-in-base
   "Increments a list of digits in a given base, least-significant-first. In

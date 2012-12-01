@@ -1,6 +1,7 @@
 (ns euler.core
   (:require [euler.grids :as grids])
   (:use clojure.math.numeric-tower
+        [clojure.math.combinatorics :only [combinations]]
         euler.math
         euler.combinators
         euler.combinatorics
@@ -203,3 +204,14 @@
                   (apply * (map (partial get-in grid) drift)))
                 drifts))))
 
+(defn p12
+  "What is the value of the first triangle number to have over five hundred
+  divisors?"
+  []
+  ; Given the prime factorization F of a number, every factor will be the
+  ; product of a sublist of F. I'm not sure about the closed-form for
+  ; combinations of *lists* rather than sets, so we just enumerate all possible
+  ; factors.
+  (first (first (drop-while (fn [[n factors]] (< factors 500))
+                     (map (fn [n] [n (count (factors n))])
+                          (triangle-numbers))))))

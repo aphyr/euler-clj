@@ -1,7 +1,17 @@
 (ns euler.combinatorics
   (:use euler.math
         euler.sequences
-        clojure.math.numeric-tower))
+        clojure.math.numeric-tower
+        [clojure.math.combinatorics :only [combinations subsets]]))
+
+(defn binomial-coefficient
+  "The binomial coefficient n choose k"
+  [n k]
+  (/ (factorial n)
+     (factorial k)
+     (factorial (- n k))))
+
+(def choose binomial-coefficient)
 
 (defn handshake-product-inc
   [base digits]
@@ -21,7 +31,8 @@
 
   In some ways, this sequence is related to a generalization of the handshake
   problem and triangle numbers to higher dimensions, but I haven't figured out
-  its name yet. I stopped looking when I got to the Riemann Zeta function. :-P
+  its name yet. I stopped looking when I got to the Riemann Zeta function. I
+  think it might be multiset combinations. :-P
 
   (handshake-product [0 1 2] 3)
   [0 0 0]
