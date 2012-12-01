@@ -42,3 +42,36 @@
   ([s1 s2 & more]
    (map flatten
         (reduce square-seq (apply list s1 s2 more)))))
+
+(declare collatz-sequence)
+(defn collatz-sequence*
+  "The Collatz sequence beginning with n, defined as:
+  n -> n/2 (n even)
+  n -> 3n + 1 (n odd)"
+  [n]
+  (if (= 1 n)
+    (list 1)
+    (cons n (lazy-seq (collatz-sequence
+                        (if (even? n)
+                          (/ n 2)
+                          (inc (* n 3))))))))
+(def collatz-sequence (memoize collatz-sequence*))
+
+(defmacro defmemo
+  [name & fdecl]
+  `(def ~name
+     (memoize (fn ~fdecl))))
+
+(defn collatz-sequence-length*
+  "Returns a memoized function computing the length of the given Collatz
+  sequence."
+  []
+  (let [f (fn [memoized n]
+            (if (= 1 n)
+              1
+              (inc (memoized memoized
+                     (if (even? n)
+                       (/ n 2)
+                       (inc (* n 3)))))))
+        memoized (memoize f)]
+    (partial memoized memoized)))
