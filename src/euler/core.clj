@@ -4,7 +4,8 @@
         euler.combinatorics
         euler.sequences
         euler.strings
-        euler.primes))
+        euler.primes
+        euler.lists))
 
 (defn p1
   "If we list all the natural numbers below 10 that are multiples of 3 or 5, we
@@ -48,3 +49,17 @@
          (filter palindrome?
                  (map (partial apply *)
                       (handshake-product (range 999 100 -1) 2)))))
+
+(defn p5
+  "2520 is the smallest number that can be divided by each of the numbers from
+  1 to 10 without any remainder.
+
+  What is the smallest positive number that is evenly divisible by all of the
+  numbers from 1 to 20?"
+  []
+  ; Call this number x. Let x's prime factorization be the list F. Since prime
+  ; factorization is bijective, finding F is sufficient. For each factor f in
+  ; 2, 3, 4, ... 20, f's prime factorization must be included in F. Hence F is
+  ; the minimum list intersection of the prime factorizations of 2, 3, ... 20.
+  (apply * (apply list-intersection (map prime-factorization (range 1 20)))))
+
