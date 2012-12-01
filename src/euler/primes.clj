@@ -1,5 +1,6 @@
 (ns euler.primes
   (:use euler.math
+        [euler.lists :only [count-distinct]]
         [clojure.math.combinatorics :only [subsets]]))
 
 (defn primes*
@@ -62,6 +63,11 @@
 
      ; No remaining factors.
      done)))
+
+(defn count-factors
+  "How many factors are in n?"
+  [n]
+  (product (map inc (vals (count-distinct (prime-factorization n))))))
 
 (defn factors
   "All factors of n."

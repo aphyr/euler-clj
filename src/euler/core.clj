@@ -213,5 +213,5 @@
   ; combinations of *lists* rather than sets, so we just enumerate all possible
   ; factors.
   (first (first (drop-while (fn [[n factors]] (< factors 500))
-                     (map (fn [n] [n (count (factors n))])
+                     (map (fn [n] [n (count-factors n)])
                           (triangle-numbers))))))
