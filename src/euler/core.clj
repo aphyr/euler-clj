@@ -115,7 +115,42 @@
           84580156166097919133875499200524063689912560717606
           05886116467109405077541002256983155200055935729725
           71636269561882670428252483600823257530420752963450"
-        n (map (fn [char] (Integer. (str char))) 
+        digits (map (fn [char] (Integer. (str char))) 
                (remove #{\space \newline} n))]
-    (apply max (map (partial apply *) (partition 5 1 n)))))
+    (apply max (map (partial apply *) (partition 5 1 digits)))))
 
+(defn p9
+  "A Pythagorean triplet is a set of three natural numbers, a < b < c, for
+  which a^2 + b^2 = c^2.
+
+  For example, 3^2 + 4^2 = 9 + 16 = 25 = 5^2.
+
+  There exists exactly one Pythagorean triplet for which a + b + c = 1000.
+  Find the product abc."
+  []
+  ; c = sqrt(a^2 + b^2)
+  ; a = n - b - c
+  ;
+  ; Eliminating c:
+  ;                                             a = n - b - sqrt(a^2 + b^2)
+  ;                                     a + b - n = sqrt(a^2 + b^2)
+  ;                                 (a + b - n)^2 = a^2 + b^2
+  ; a^2 + ab - an + ab + b^2 - bn - an - bn + n^2 = a^2 + b^2
+  ;             a^2 + b^2 + 2ab - 2an - 2bn + n^2 = a^2 + b^2
+  ;                         2ab - 2an - 2bn + n^2 = 0
+  ;                                     2ab - 2an = 2bn - n^2
+  ;                                      2a (b-n) = 2bn - n^2
+  ;                                             a = (2bn - n^2) / 2(b - n)
+  ;
+  ; This reduces our search space to linear in n.
+  (let [n 1000]
+    (apply * (first
+               (filter (fn [[a b c]]
+                         (and (integer? a)
+                              (< 0 a b n)))
+                       (map (fn [b] 
+                              (let [a (/ (- (* 2 b n) (* n n))
+                                         (* 2 (- b n)))
+                                    c (sqrt (+ (square a) (square b)))]
+                                [a b c]))
+                            (drop-last 1 (take n ordinals))))))))

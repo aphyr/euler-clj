@@ -9,6 +9,10 @@
   "The ordinal numbers"
   (iterate inc (bigint 1)))
 
+(def squares
+  "The square numbers"
+  (map square N))
+
 (defn fibonacci
   "A fibonacci sequence beginning with seeds a and b"
   ([] (fibonacci (bigint 1) (bigint 2)))

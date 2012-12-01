@@ -21,6 +21,11 @@
   [x]
   (expt x 2))
 
+(defn square?
+  "Is n the square of an integer?"
+  [n]
+  (== n (square (round (expt n 1/2)))))
+
 (defn cube
   "x cubed"
   [x]
