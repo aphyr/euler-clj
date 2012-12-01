@@ -1,7 +1,10 @@
 (ns euler.core
   (:use euler.math
         euler.combinators
-        euler.sequences))
+        euler.combinatorics
+        euler.sequences
+        euler.strings
+        euler.primes))
 
 (defn p1
   "If we list all the natural numbers below 10 that are multiples of 3 or 5, we
@@ -24,3 +27,24 @@
   four million, find the sum of the even-valued terms."
   []
   (sum (filter even? (take-while (partial > 4000000) (fibonacci)))))
+
+(defn p3
+  "The prime factors of 13195 are 5, 7, 13 and 29.
+
+  What is the largest prime factor of the number 600851475143 ?"
+  []
+  (apply max (prime-factorization 600851475143)))
+
+(defn p4
+  "A palindromic number reads the same both ways. The largest palindrome made
+  from the product of two 2-digit numbers is 9009 = 91 x 99.
+
+  Find the largest palindrome made from the product of two 3-digit numbers.OB"
+  []
+  ; I know a closed-form expression for this in the two-product case, but
+  ; a solution general in the number of products turned out to be more
+  ; interesting.
+  (apply max
+         (filter palindrome?
+                 (map (partial apply *)
+                      (handshake-product (range 999 100 -1) 2)))))

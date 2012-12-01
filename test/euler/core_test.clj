@@ -2,6 +2,15 @@
   (:use clojure.test
         euler.core))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(defmacro p
+  [number value]
+  (let [test (symbol (str "p" number "-test"))
+        fun  (symbol (str "p" number))]
+    (prn test fun)
+    `(deftest ~test
+              (is (= ~value (~fun))))))
+
+(p 1 233168N)
+(p 2 4613732N)
+(p 3 6857)
+(p 4 906609)
