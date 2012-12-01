@@ -154,3 +154,10 @@
                                     c (sqrt (+ (square a) (square b)))]
                                 [a b c]))
                             (drop-last 1 (take n ordinals))))))))
+
+(defn p10
+  "The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+
+  Find the sum of all the primes below two million."
+  []
+  (sum (take-while (partial > 2000000) primes)))
