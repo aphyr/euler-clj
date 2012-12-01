@@ -1,5 +1,6 @@
 (ns euler.combinatorics
   (:use euler.math
+        euler.sequences
         clojure.math.numeric-tower))
 
 (defn handshake-product-inc
@@ -44,11 +45,5 @@
                         (repeat n 0))))))
 
 (defn cartesian-product
-  "Lazy cartesian product: returns all n-element lists of elements from items.
-  Uses nth on items, which could be expensive!"
-  ([items n]
-   (let [base (count items)]
-     (map (partial map (partial nth items))
-          (take (expt base n)
-                (iterate (partial inc-in-base base)
-                         (repeat n 0)))))))
+  [& lists]
+  (apply square-seq lists))
