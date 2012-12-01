@@ -4,7 +4,7 @@
 (defn primes*
   "A sieve-of-eratosthenes sequence of prime numbers, beginning with candidate
   and sieve."
-  ([] (primes* (bigint 2) '()))
+  ([] (primes* 2 '()))
   ([candidate sieve]
    (if (divisible-by-any? sieve candidate)
      ; Not prime
