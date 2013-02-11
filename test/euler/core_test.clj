@@ -6,7 +6,6 @@
   [number value]
   (let [test (symbol (str "p" number "-test"))
         fun  (symbol (str "p" number))]
-    (prn test fun)
     `(deftest ~test
               (is (= ~value (~fun))))))
 
